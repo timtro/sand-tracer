@@ -10,19 +10,14 @@ import scipy.integrate as integrate
 
 class Pendulum1D:
     """ Just the dynamics of the pendulum. Constants related to pendulum
-        design:
-                # Radius: r
-                # Pith pass: m
-                # Drag loss coefficient: b
-                # Acceleration due to gravity: g
-        are stored here, but not the pendulum's state.
+        design are stored here, but not the pendulum's state.
     """
 
     def __init__(self, r=1, m=.5, b=.2, g=9.807):
-        self.r = r
-        self.m = m
-        self.b = b
-        self.g = g
+        self.r = r  # Radius, or length of string.
+        self.m = m  # Pith mass
+        self.b = b  # Drag loss coefficient
+        self.g = g  # Acceleration due to gravity
 
     def dxdt(self, x, t):
         # State of pendulum: x ∈ R^2, contains angular position and speed.
@@ -41,15 +36,22 @@ class PendulumSimulator2D:
         two 1D problems.)
     """
 
-    def __init__(self, r=[1, 1], m=0.5, b=0.2, g=9.807, dt=0.1):
+    def __init__(self,
+                 r=[1, 1],
+                 m=0.5,
+                 b=0.2,
+                 g=9.807,
+                 dt=0.1,
+                 xx0=[0, 1],
+                 xy0=[0, -1]):
         self.dt = dt
         self.px = Pendulum1D(r=r[0], m=m, b=b, g=g)
         self.py = Pendulum1D(r=r[1], m=m, b=b, g=g)
 
         # Initial conditions
         self.t = 0
-        self.xx = np.array([0, -1])
-        self.xy = np.array([0, 1])
+        self.xx = np.array(xx0)
+        self.xy = np.array(xy0)
 
     def angular_pos_vel_to_cartesian(self, pX):
         """ The dynamics are performed on the angular coordinates. For plotting,
@@ -76,28 +78,28 @@ if __name__ == '__main__':
     # Everything to do with plotting and animating.
     preset = []
     preset.append(dict(r=[2, 1.4], b=0.01))
-    preset.append(dict(r=[2, 1.8], b=0.03))
+    preset.append(dict(r=[2, 1.8], b=0.02))
     sim = PendulumSimulator2D(**preset[0])
 
     fig = plt.figure()
     ax = fig.add_subplot(
         111, aspect='equal', autoscale_on=False, xlim=(-1, 1), ylim=(-1, 1))
 
-    pith, = ax.plot([], [], 'o-', ms=15)
     line, = ax.plot([], [], 'r-', lw=1)
+    pith, = ax.plot([], [], 'o-', ms=15)
     time_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
 
-    XHist = []
-    YHist = []
+    XHistory = []
+    YHistory = []
 
     def animate(data):
         t, X, Y = data
-        XHist.append(X[0])
-        YHist.append(Y[0])
+        XHistory.append(X[0])
+        YHistory.append(Y[0])
         pith.set_data(X[0], Y[0])
-        line.set_data(XHist, YHist)
+        line.set_data(XHistory, YHistory)
         time_text.set_text('time = %.1f' % t)
-        return pith, line, time_text
+        return line, pith, time_text
 
-    ani = animation.FuncAnimation(fig, animate, sim, blit=True, interval=1)
+    ani = animation.FuncAnimation(fig, animate, sim, blit=True, interval=10)
     plt.show()
