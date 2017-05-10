@@ -19,7 +19,6 @@ class Pendulum1D:
     """
 
     def __init__(self, r=1, m=.5, b=.2, g=9.807):
-
         self.r = r
         self.m = m
         self.b = b
@@ -91,12 +90,6 @@ if __name__ == '__main__':
     XHist = []
     YHist = []
 
-    def init():
-        pith.set_data([], [])
-        line.set_data([], [])
-        time_text.set_text('')
-        return pith, line, time_text
-
     def animate(data):
         t, X, Y = data
         XHist.append(X[0])
@@ -106,6 +99,5 @@ if __name__ == '__main__':
         time_text.set_text('time = %.1f' % t)
         return pith, line, time_text
 
-    ani = animation.FuncAnimation(
-        fig, animate, sim, blit=True, interval=1, repeat=False, init_func=init)
+    ani = animation.FuncAnimation(fig, animate, sim, blit=True, interval=1)
     plt.show()
