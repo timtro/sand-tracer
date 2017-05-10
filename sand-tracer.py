@@ -36,14 +36,10 @@ class PendulumSimulator2D:
         two 1D problems.)
     """
 
-    def __init__(self,
-                 r=[1, 1],
-                 m=0.5,
-                 b=0.2,
-                 g=9.807,
-                 dt=0.1,
-                 xx0=[0, 1],
-                 xy0=[0, -1]):
+    # yapf: disable
+    def __init__(self, r=[1, 1], m=0.5, b=0.2, g=9.807, dt=0.1,  # As before
+                 xx0=[0, 1],    # Initial state of x-pendulum
+                 xy0=[0, -1]):  # Initial state of y-pendulum
         self.dt = dt
         self.px = Pendulum1D(r=r[0], m=m, b=b, g=g)
         self.py = Pendulum1D(r=r[1], m=m, b=b, g=g)
@@ -52,6 +48,7 @@ class PendulumSimulator2D:
         self.t = 0
         self.xx = np.array(xx0)
         self.xy = np.array(xy0)
+    # yapf: enable
 
     def angular_pos_vel_to_cartesian(self, pX):
         """ The dynamics are performed on the angular coordinates. For plotting,
