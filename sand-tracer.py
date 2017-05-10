@@ -107,11 +107,5 @@ if __name__ == '__main__':
         return pith, line, time_text
 
     ani = animation.FuncAnimation(
-        fig,
-        animate,
-        sim,
-        blit=False,
-        interval=1,
-        repeat=False,
-        init_func=init)
+        fig, animate, sim, blit=True, interval=1, repeat=False, init_func=init)
     plt.show()
