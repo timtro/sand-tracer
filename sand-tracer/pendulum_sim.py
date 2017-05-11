@@ -1,11 +1,4 @@
-# Author: Timothy A. V. Teatro
-# Copyright 2017 by Timothy A. V. Teatro. All rights reserved.
-# See LICENSE for details on GPL v3.
-
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import scipy.integrate as integrate
 
 
 class Pendulum1D:
@@ -23,9 +16,9 @@ class Pendulum1D:
         # State of pendulum: x ∈ R^2, contains angular position and speed.
         return np.array([x[1], -9.8 * np.sin(x[0]) / self.r - self.b * x[1]])
 
-    def energy(self, x):
-        T = self.m * self.r**2 * x[1]**2 / 2
-        U = -self.m * self.g * self.r * np.cos(x[0])
+    def energy(s, x):
+        T = s.m * (s.r * x[1])**2 / 2.
+        U = -s.m * s.g * s.r * np.cos(x[0])
         return T + U
 
 
@@ -48,9 +41,14 @@ class PendulumSimulator2D:
         self.t = 0
         self.xx = np.array(xx0)
         self.xy = np.array(xy0)
+        self.E0 = self.energy(xx0, xy0)  # Starting energy
+        self.Erest = self.energy([0, 0], [0, 0])  # Rest energy
     # yapf: enable
 
-    def angular_pos_vel_to_cartesian(self, pX):
+    def energy(self, xx, xy):
+        return self.px.energy(xx) + self.py.energy(xy)
+
+    def angular_to_cartesian(self, pX):
         """ The dynamics are performed on the angular coordinates. For plotting,
             we'll want to convert with some basic trigonometry.
                 x = r * sin(theta)
@@ -61,42 +59,3 @@ class PendulumSimulator2D:
 
     def __iter__(self):
         return self
-
-    def __next__(self):
-        prevX = (self.t, self.angular_pos_vel_to_cartesian(self.xx),
-                 self.angular_pos_vel_to_cartesian(self.xy))
-        self.xx = integrate.odeint(self.px.dxdt, self.xx, [0, self.dt])[-1]
-        self.xy = integrate.odeint(self.py.dxdt, self.xy, [0, self.dt])[-1]
-        self.t += self.dt
-        return prevX
-
-
-if __name__ == '__main__':
-    # Everything to do with plotting and animating.
-    preset = []
-    preset.append(dict(r=[2, 1.4], b=0.01))
-    preset.append(dict(r=[2, 1.8], b=0.02))
-    sim = PendulumSimulator2D(**preset[0])
-
-    fig = plt.figure()
-    ax = fig.add_subplot(
-        111, aspect='equal', autoscale_on=False, xlim=(-1, 1), ylim=(-1, 1))
-
-    line, = ax.plot([], [], 'r-', lw=1)
-    pith, = ax.plot([], [], 'o-', ms=15)
-    time_text = ax.text(0.02, 0.95, '', transform=ax.transAxes)
-
-    XHistory = []
-    YHistory = []
-
-    def animate(data):
-        t, X, Y = data
-        XHistory.append(X[0])
-        YHistory.append(Y[0])
-        pith.set_data(X[0], Y[0])
-        line.set_data(XHistory, YHistory)
-        time_text.set_text('time = %.1f' % t)
-        return line, pith, time_text
-
-    ani = animation.FuncAnimation(fig, animate, sim, blit=True, interval=10)
-    plt.show()
