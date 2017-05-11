@@ -43,6 +43,9 @@ if __name__ == '__main__':
     YHistory = []
 
     def animate(data):
+        """ Here, the type of 'data' is the return from the iterator
+                PendulumSimulatorIterator.__next__()
+        """
         t, X, Y = data
         XHistory.append(X[0])
         YHistory.append(Y[0])

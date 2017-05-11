@@ -48,6 +48,7 @@ class PendulumSimulator2D:
     def energy(self, xx, xy):
         return self.px.energy(xx) + self.py.energy(xy)
 
+    # TODO: This is bugged. It's wrotten for x-direction in X, y in y, but only takes one state! 
     def angular_to_cartesian(self, pX):
         """ The dynamics are performed on the angular coordinates. For plotting,
             we'll want to convert with some basic trigonometry.
