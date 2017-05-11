@@ -30,7 +30,8 @@ if __name__ == '__main__':
     preset = []
     preset.append(dict(r=[2, 1.4], b=0.01))
     preset.append(dict(r=[2, 1.8], b=0.02))
-    sim = PendulumSimulatorIterator(**preset[0], dt=0.07)
+    preset.append(dict(r=[1, 1], b=0.02))
+    sim = PendulumSimulatorIterator(**preset[2], dt=0.07)
 
     fig, axs = plt.subplots(1, 2)
 
@@ -47,8 +48,8 @@ if __name__ == '__main__':
         axs[1],
         sim.px.dxdt,
         samples=51,
-        xrng=[-2, 2],
-        yrng=[-2, 2],
+        xlim=[-2, 2],
+        ylim=[-2, 2],
         cmap='viridis')
 
     pline, = axs[1].plot([], [], 'b-', lw=1)

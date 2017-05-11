@@ -3,16 +3,16 @@ import numpy as np
 
 # yapf: disable
 def phase_portrait(ax=None, f=lambda x, t: np.array([x[1], -x[0]]),
-                   xrng=[-1, 1], yrng=[-1, 1], cmap='jet',
+                   xlim=[-1, 1], ylim=[-1, 1], cmap='jet',
                    samples=31, arrow_width=0.0022, unit_arrows=False):
     # yapf: enable
-    xwidth = xrng[1] - xrng[0]
-    ywidth = yrng[1] - yrng[0]
+    xwidth = xlim[1] - xlim[0]
+    ywidth = ylim[1] - ylim[0]
 
     # Positions of arrow centres:
     X, Y = np.meshgrid(
-        np.linspace(xrng[0] - .1 * xwidth, xrng[1] + .1 * xwidth, samples),
-        np.linspace(yrng[0] - .1 * ywidth, yrng[1] + .1 * ywidth, samples))
+        np.linspace(xlim[0] - .1 * xwidth, xlim[1] + .1 * xwidth, samples),
+        np.linspace(ylim[0] - .1 * ywidth, ylim[1] + .1 * ywidth, samples))
 
     # Vectors in field
     u, v = f([X, Y], 0.)
