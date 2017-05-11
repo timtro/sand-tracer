@@ -14,8 +14,9 @@ class PendulumSimulatorIterator(PendulumSimulator2D):
 
     def __next__(self):
         # Will return current data, and tee-up for next iteration.
-        prevX = (self.t, self.angular_to_cartesian(self.xx),
-                 self.angular_to_cartesian(self.xy))
+        prevX = (self.t, self.px.proj_horiz(self.xx),
+                 self.py.proj_horiz(self.xy))
+
         self.xx = integrate.odeint(self.px.dxdt, self.xx, [0, self.dt])[-1]
         self.xy = integrate.odeint(self.py.dxdt, self.xy, [0, self.dt])[-1]
         self.t += self.dt

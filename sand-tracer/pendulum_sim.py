@@ -21,6 +21,15 @@ class Pendulum1D:
         U = -s.m * s.g * s.r * np.cos(x[0])
         return T + U
 
+    def proj_horiz(self, pX):
+        """ The dynamics are performed on the angular coordinates. For plotting,
+            we'll want to convert with some basic trigonometry.
+                x = r * sin(theta)
+                dx/dt = r * cos(theta) * d.theta/dt
+        """
+        return np.array(
+            [self.r * np.sin(pX[0]), self.r * np.cos(pX[0]) * pX[1]])
+
 
 class PendulumSimulator2D:
     """ The class aggregates dynamics for two 1D pendulums which is isomorphic
@@ -47,16 +56,6 @@ class PendulumSimulator2D:
 
     def energy(self, xx, xy):
         return self.px.energy(xx) + self.py.energy(xy)
-
-    # TODO: This is bugged. It's wrotten for x-direction in X, y in y, but only takes one state! 
-    def angular_to_cartesian(self, pX):
-        """ The dynamics are performed on the angular coordinates. For plotting,
-            we'll want to convert with some basic trigonometry.
-                x = r * sin(theta)
-                dx/dt = r * cos(theta) * d.theta/dt
-        """
-        return np.array(
-            [self.px.r * np.sin(pX[0]), self.py.r * np.cos(pX[0]) * pX[1]])
 
     def __iter__(self):
         return self

@@ -15,8 +15,8 @@ class PendulumSimulatorIterator(PendulumSimulator2D):
 
     def __next__(self):
         # Will return current data, and tee-up for next iteration.
-        prevX = (self.t, self.angular_to_cartesian(self.xx),
-                 self.angular_to_cartesian(self.xy),
+        prevX = (self.t, self.px.proj_horiz(self.xx),
+                 self.py.proj_horiz(self.xy),
                  self.energy(self.xx, self.xy) - self.Erest)
 
         self.xx = integrate.odeint(self.px.dxdt, self.xx, [0, self.dt])[-1]
@@ -49,8 +49,7 @@ if __name__ == '__main__':
         samples=51,
         xrng=[-2, 2],
         yrng=[-2, 2],
-        # cmap='viridis'
-        cmap='inferno')
+        cmap='viridis')
 
     pline, = axs[1].plot([], [], 'b-', lw=1)
     ppoint, = axs[1].plot([], [], 'o-', ms=15)
