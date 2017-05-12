@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate as integrate
 
-from pendulum_sim import PendulumSimulator2D, presets
+from pendulum_sim import PendulumSimulator2D
 from plot_helpers import phase_portrait
+from presets import presets
 
 
 class PendulumSimulatorIterator(PendulumSimulator2D):

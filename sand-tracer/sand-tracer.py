@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import scipy.integrate as integrate
 
-from pendulum_sim import PendulumSimulator2D, presets
+from pendulum_sim import PendulumSimulator2D
+from presets import presets
 
 
 class PendulumSimulatorIterator(PendulumSimulator2D):
