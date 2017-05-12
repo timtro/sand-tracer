@@ -29,5 +29,5 @@ def phase_portrait(ax=None, f=lambda x, t: np.array([x[1], -x[0]]),
 
     # yapf: disable
     return ax.quiver(X, Y, u, v, m, pivot='mid', width=arrow_width,
-                     scale=samples * 2, scale_units='height',
+                     scale=samples * 2, scale_units='height', angles='xy',
                      cmap=cmap)

@@ -27,12 +27,12 @@ class PendulumSimulatorIterator(PendulumSimulator2D):
 
 if __name__ == '__main__':
     # Everything to do with plotting and animating.
-    sim = PendulumSimulatorIterator(**presets[2], dt=0.07)
+    sim = PendulumSimulatorIterator(**presets[0], dt=0.07)
 
     fig, axs = plt.subplots(1, 2)
 
     axs[0].set(aspect='equal', autoscale_on=False, xlim=(-1, 1), ylim=(-1, 1))
-    axs[1].set(aspect='equal', autoscale_on=False, xlim=(-2, 2), ylim=(-2, 2))
+    axs[1].set(aspect=0.5, autoscale_on=False, xlim=(-1, 1), ylim=(-2, 2))
     fig.subplots_adjust(
         left=0.05, right=0.98, bottom=0.05, top=0.98, wspace=0.1)
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         axs[1],
         sim.px.dxdt,
         samples=51,
-        xlim=[-2, 2],
+        xlim=[-1, 1],
         ylim=[-2, 2],
         cmap='viridis')
 
