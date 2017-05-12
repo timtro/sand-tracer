@@ -8,7 +8,7 @@ This software has three components:
 
 To model a 2D-pendulum, I'll divide it into two single-dimensional pendulums. This is a strictly linear strategy, and the 2D pendulum is nonlinear. However, we will use two noninear pendulums to mitigate error (leaving onlt the nonlinearity in the coupling terms), and we can expect our approximation to hold well for small angles. The payoff for this approximation is that we can use the relatively simple dynamics of a single pendulum and aggregate two of them to form our approximation of a 2D asymmetric pendulum, as shown in the following Figure:
 
- * ![](sand-pendulum-fig.svg)
+ * ![](sand-pendulum-fig.svg.png)
  * Fig: An illustration of the assymetric 2D pendulum. The presence of two pivots at lengths $r_x$ and $r_y$ produces a dissonance in the oscillation period in the $x$- and $y$-directions.
 
 Consider Newton's equation of motion for a pendulum with drag in a single dimension:
