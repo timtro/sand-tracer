@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate as integrate
 
-from pendulum_sim import PendulumSimulator2D
+from pendulum_sim import PendulumSimulator2D, presets
 from plot_helpers import phase_portrait
 
 
@@ -27,11 +27,7 @@ class PendulumSimulatorIterator(PendulumSimulator2D):
 
 if __name__ == '__main__':
     # Everything to do with plotting and animating.
-    preset = []
-    preset.append(dict(r=[2, 1.4], b=0.01))
-    preset.append(dict(r=[2, 1.8], b=0.02))
-    preset.append(dict(r=[1, 1], b=0.02))
-    sim = PendulumSimulatorIterator(**preset[2], dt=0.07)
+    sim = PendulumSimulatorIterator(**presets[2], dt=0.07)
 
     fig, axs = plt.subplots(1, 2)
 
