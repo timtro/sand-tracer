@@ -74,7 +74,7 @@ The usage is identical to `sand-tracer.py`. Only the animation details are diffe
 
 ## Changing the speed of plotting
 
-There are two places in the code where you can change the speed of the animation. Forst, you may change inte interval passed to [`matplotlib.animate`](http://matplotlib.org/api/_as_gen/matplotlib.animation.FuncAnimation.html#matplotlib.animation.FuncAnimation). The line should look something like this:
+There are two places in the code where you can change the speed of the animation. Forst, you may change inte interval passed to [`matplotlib.animation.FuncAnimation`](http://matplotlib.org/api/_as_gen/matplotlib.animation.FuncAnimation.html#matplotlib.animation.FuncAnimation). The line should look something like this:
 ```
 ani = animation.FuncAnimation(
     fig, animate, pendulum_sim_generator, blit=True, interval=10)
