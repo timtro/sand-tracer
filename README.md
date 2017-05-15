@@ -72,7 +72,7 @@ The plot on the left is what is produced by the vanilla `sand-tracer.py`. The pl
 The usage is identical to `sand-tracer.py`. Only the animation details are different.
 
 
-## Changing the speed of plotting
+## Changing the speed of animation
 
 There are two places in the code where you can change the speed of the animation. Forst, you may change inte interval passed to [`matplotlib.animation.FuncAnimation`](http://matplotlib.org/api/_as_gen/matplotlib.animation.FuncAnimation.html#matplotlib.animation.FuncAnimation). The line should look something like this:
 ```
